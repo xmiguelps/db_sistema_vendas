@@ -68,5 +68,10 @@ CREATE PROCEDURE sp_reajustar_precos_categoria(
     IN p_percentual DECIMAL(5,2)
 )
 BEGIN
-	
+	DECLARE v_fator_multiplicacao(10,4);
+	SET v_fator_multiplicacao = 1 + (p_percentual / 100);
+	UPDATE tb_produto
+	SET vl_preco_venda = vl_preco_venda * v_fator_multiplicacao
+	WHERE cd_categoria = p_cd_categoria;
 END //
+DELIMITER ;
